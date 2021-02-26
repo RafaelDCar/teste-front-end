@@ -1,0 +1,19 @@
+{
+  "name": "teste-front-end",
+  "version": "1.0.0",
+  "description": "![Easynvest](https://user-images.githubusercontent.com/8808895/46966234-81191d00-d083-11e8-8da3-63d1f12e4365.png)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RafaelDCar/teste-front-end.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RafaelDCar/teste-front-end/issues"
+  },
+  "homepage": "https://github.com/RafaelDCar/teste-front-end#readme"
+}

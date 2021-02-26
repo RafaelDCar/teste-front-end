@@ -1,0 +1,53 @@
+.wrapper {
+  font-family: sans-serif;
+  margin: 0 auto;
+}
+.wrapper .cad-form .btn-actions {
+  display: flex;
+  justify-content: center;
+}
+.wrapper .input-wrapper {
+  display: flex;
+  flex-direction: column-reverse;
+  margin-bottom: 16px;
+  margin-top: 16px;
+}
+.wrapper .input-wrapper label {
+  color: #efeeed;
+}
+.wrapper .input-wrapper input {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+.wrapper .input-wrapper input:focus + label {
+  color: #333333;
+}
+.wrapper .input-wrapper input:focus {
+  outline: none;
+}
+.wrapper .input-wrapper input:focus:invalid {
+  outline: none;
+  border-color: #eb4a46;
+}
+
+.btn {
+  background-color: #00c8b3;
+  border: none;
+  border-radius: 30px;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 20px;
+  max-width: 250px;
+  width: 100%;
+}
+.btn:hover {
+  opacity: 70%;
+}
+.btn:disabled {
+  color: #dddcdc;
+  background-color: #f6f6f6;
+}
+
+/*# sourceMappingURL=style.css.map */
