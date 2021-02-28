@@ -1,6 +1,7 @@
 .wrapper {
   font-family: sans-serif;
   margin: 0 auto;
+  padding: 8px;
 }
 .wrapper .cad-form .btn-actions {
   display: flex;
@@ -26,9 +27,13 @@
 .wrapper .input-wrapper input:focus {
   outline: none;
 }
-.wrapper .input-wrapper input:focus:invalid {
+.wrapper .input-wrapper input:invalid {
   outline: none;
   border-color: #eb4a46;
+}
+.wrapper .input-wrapper .message-error {
+  color: #eb4a46;
+  font-size: 14px;
 }
 
 .btn {

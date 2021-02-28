@@ -1,6 +1,7 @@
 .wrapper {
   font-family: sans-serif;
   margin: 0 auto;
+  padding: 8px;
 
   .cad-form {
 
@@ -9,9 +10,6 @@
       justify-content: center;
     }
 
-    .btn-submit {
-      
-    }
   }
   
   .input-wrapper {
@@ -37,10 +35,15 @@
         outline: none;
       }
 
-      &:focus:invalid {
+      &:invalid {
         outline: none;
         border-color: #eb4a46;
       }
+    }
+
+    .message-error {
+      color: #eb4a46;
+      font-size: 14px;
     }
     
   }
