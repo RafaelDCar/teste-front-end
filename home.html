@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .menu {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .menu-item {
+      padding: 8px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="menu">
+    <a href="listaUsuarios.html" class="menu-item">Listar Usuarios</a>
+    <a href="cadUsuarios.html" class="menu-item">Cadastro de Usuarios</a>
+  </div>
+
+</body>
+
+
+<script>
+  async function getAllUsers() {
+    const usersApi = await fetch('https://private-21e8de-rafaellucio.apiary-mock.com/users');
+    const responseJson = await usersApi.json(); // JSON from the http response
+    return responseJson;
+  }
+
+  getAllUsers().then(data => {
+    sessionStorage.setItem('users', JSON.stringify(data))
+  })
+</script>
+</html>

@@ -49,19 +49,6 @@
 
 </body>
 
-<script type="text/javascript" language="javascript">
-  getAllUsers = async () => {
-    console.log('call => ');
-    const usersApi = await fetch('https://private-21e8de-rafaellucio.apiary-mock.com/users');
-    const responseJson = await usersApi.json(); // JSON from the http response
-    // do something with myJson
-    if (responseJson) {
-      sessionStorage.setItem("users", JSON.stringify(responseJson));
-    }
-    console.log('response => ', responseJson);
-    console.log('session storage => ', sessionStorage.getItem('users'));
-  }
-</script>
 
 <script type="text/javascript">
   const nome = document.getElementById("nome");
@@ -129,5 +116,7 @@
       return false;
   }
 </script>
+
+<script src="./js/index.js"></script>
 
 </html>

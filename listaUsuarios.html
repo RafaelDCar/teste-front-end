@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="users" class="users">
+    <table>
+      <thead id="users-item">
+        <tr>
+          <td>Nome</td>
+          <td>CPF</td>
+          <td>Telefone</td>
+          <td>Email</td>
+        </tr>
+      </thead>
+    </table>
+  </div>
+</body>
+
+<script type="text/javascript" language="javascript">
+
+  const usersItem = document.getElementById('users-item');
+  console.log(usersItem)
+ 
+  const usersSession = JSON.parse(sessionStorage.getItem('users'));
+    if(usersSession) {
+      console.log('session  => ', usersSession);
+
+      
+      usersSession.forEach(element => {
+        const tr = document.createElement('tr');
+        usersItem.appendChild(tr)
+        console.log('3lement', element)
+        Object.keys(element).forEach(key => {
+          const td =  document.createElement('td');
+          td.innerHTML = element[key]
+          tr.appendChild(td)
+        })
+        // element.keys(key => {
+        //   console.log('key')
+        //  
+        // })
+      });
+    }  
+    
+  </script>
+</html>
