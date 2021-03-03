@@ -1,1 +1,1 @@
-import * from './valida-cpf';
+import valida_cpf from './valida-cpf';

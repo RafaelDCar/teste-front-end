@@ -55,4 +55,9 @@
   font-size: 14px;
 }
 
+.invalid {
+  outline: none;
+  border-color: #eb4a46;
+}
+
 /*# sourceMappingURL=style.css.map */

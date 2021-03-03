@@ -56,12 +56,12 @@
   const email = document.getElementById("email");
   const telefone = document.getElementById("telefone");
 
-  nome.addEventListener("input", function (event) {
+  nome.addEventListener("input", () => {
     const error = document.getElementById('nome-error');
     nome.validity.valid ? error.style.display = 'none' : error.style.display = 'block';
   }, false);
 
-  cpf.addEventListener("input", function (event) {
+  cpf.addEventListener("input", () => {
     const error = document.getElementById('cpf-error');
    
     if(cpf.value.length === 14) {
@@ -73,12 +73,12 @@
     cpf.validity.valid ? error.style.display = 'none' : error.style.display = 'block';
   }, false);
 
-  telefone.addEventListener("input", function (event) {
+  telefone.addEventListener("input", () => {
     const error = document.getElementById('telefone-error');
     telefone.validity.valid ? error.style.display = 'none' : error.style.display = 'block';
   }, false);
 
-  email.addEventListener("input", function (event) {
+  email.addEventListener("input", () => {
     const error = document.getElementById('email-error');
     email.validity.valid ? error.style.display = 'none' : error.style.display = 'block';
   }, false);

@@ -1,50 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+
+  <style>
+    .container {
+      margin: 12px 48px;
+    }
+
+    #users {
+      width: 95%;
+      border-collapse: collapse;
+    }
+
+    #users td,
+    #users th {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+
+    #users tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    #users th:hover {
+      cursor: default;
+    }
+
+    #users tr:hover {
+      background-color: #ddd;
+      cursor: pointer;
+    }
+
+    #users th {
+      text-align: left;
+      background-color: #00c8b3;
+      color: white;
+    }
+  </style>
 </head>
+
 <body>
-  <div id="users" class="users">
-    <table>
-      <thead id="users-item">
-        <tr>
-          <td>Nome</td>
-          <td>CPF</td>
-          <td>Telefone</td>
-          <td>Email</td>
-        </tr>
-      </thead>
+  <div class="container">
+    <table id="users">
+      <tr>
+        <th>Nome</th>
+        <th>CPF</th>
+        <th>Telefone</th>
+        <th>Email</th>
+      </tr>
     </table>
   </div>
 </body>
 
 <script type="text/javascript" language="javascript">
+  const users = document.getElementById('users');
+  console.log(users)
 
-  const usersItem = document.getElementById('users-item');
-  console.log(usersItem)
- 
   const usersSession = JSON.parse(sessionStorage.getItem('users'));
-    if(usersSession) {
-      console.log('session  => ', usersSession);
+  if (usersSession) {
+    console.log('session  => ', usersSession);
 
-      
-      usersSession.forEach(element => {
-        const tr = document.createElement('tr');
-        usersItem.appendChild(tr)
-        console.log('3lement', element)
-        Object.keys(element).forEach(key => {
-          const td =  document.createElement('td');
-          td.innerHTML = element[key]
-          tr.appendChild(td)
-        })
-        // element.keys(key => {
-        //   console.log('key')
-        //  
-        // })
-      });
-    }  
-    
-  </script>
+
+    usersSession.forEach(element => {
+      const tr = document.createElement('tr');
+      users.appendChild(tr)
+      console.log('3lement', element)
+      Object.keys(element).forEach(key => {
+        const td = document.createElement('td');
+        td.innerHTML = element[key]
+        tr.appendChild(td)
+      })
+    });
+  }
+</script>
+
 </html>
