@@ -82,6 +82,8 @@
 
         sessionStorage.setItem('users', JSON.stringify(newArray))
 
+        users.removeChild(tr)
+
         console.log('new array delete ', newArray)
       })
 
