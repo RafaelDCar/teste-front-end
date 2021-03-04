@@ -32,7 +32,7 @@
 
     #users tr:hover {
       background-color: #ddd;
-      cursor: pointer;
+      cursor: default;
     }
 
     #users th {
@@ -67,15 +67,30 @@
     console.log('session  => ', usersSession);
 
 
-    usersSession.forEach(element => {
+    usersSession.forEach(user => { //Cria linha para cada usuario salvo no storage.
       const tr = document.createElement('tr');
       users.appendChild(tr)
-      console.log('3lement', element)
-      Object.keys(element).forEach(key => {
+      const tdExcluir = document.createElement('td');
+      tdExcluir.innerHTML = 'Excluir';
+
+      tdExcluir.addEventListener('click', (event) => {
+        console.log('exluir', user)
+
+        const newArray = usersSession.filter((deleteUser) => {
+          return user.cpf !== deleteUser.cpf
+        })
+
+        sessionStorage.setItem('users', JSON.stringify(newArray))
+
+        console.log('new array delete ', newArray)
+      })
+
+      Object.keys(user).forEach(key => {
         const td = document.createElement('td');
-        td.innerHTML = element[key]
+        td.innerHTML = user[key]
         tr.appendChild(td)
       })
+      tr.appendChild(tdExcluir)
     });
   }
 </script>
