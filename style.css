@@ -17,6 +17,17 @@
   background-color: #f6f6f6;
 }
 
+.menu {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+}
+
+.menu-item {
+  padding: 8px;
+}
+
 .wrapper {
   font-family: sans-serif;
   margin: 0 auto;

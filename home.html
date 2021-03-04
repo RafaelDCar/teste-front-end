@@ -8,18 +8,6 @@
 
   <link rel="stylesheet" href="style.css">
 
-  <style>
-    .menu {
-      align-items: center;
-      display: flex;
-      justify-content: center;
-      height: 100vh;
-    }
-
-    .menu-item {
-      padding: 8px;
-    }
-  </style>
 </head>
 
 <body>
@@ -40,7 +28,10 @@
   }
 
   getAllUsers().then(data => {
-    sessionStorage.setItem('users', JSON.stringify(data))
+    const storage = sessionStorage.getItem('users');
+    if(!storage) {
+      sessionStorage.setItem('users', JSON.stringify(data))
+    }
   })
 </script>
 </html>

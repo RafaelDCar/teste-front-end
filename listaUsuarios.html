@@ -58,9 +58,11 @@
 
 <script type="text/javascript" language="javascript">
   const users = document.getElementById('users');
-  console.log(users)
+  
 
   const usersSession = JSON.parse(sessionStorage.getItem('users'));
+
+  console.log('session list', usersSession)
   if (usersSession) {
     console.log('session  => ', usersSession);
 

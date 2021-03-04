@@ -41,7 +41,7 @@
       </div>
 
       <div class="btn-actions">
-        <button class="btn btn-submit" onclick="getAllUsers()" type="button">Cadastrar</button>
+        <button class="btn btn-submit" onclick="saveUser()" type="button">Cadastrar</button>
       </div>
     </form>
 
@@ -115,6 +115,30 @@
     } else
       return false;
   }
+</script>
+
+<script type="text/javascript">
+
+const saveUser = () => {
+  const nome = document.getElementById("nome").value;
+  const cpf = document.getElementById("cpf").value;
+  const email = document.getElementById("email").value;
+  const telefone = document.getElementById("telefone").value;
+  
+  const form = { nome, cpf, email, telefone }
+
+  const storage = JSON.parse(sessionStorage.getItem('users'));
+
+  console.log('usuario' , form)
+  
+  const newStorage = storage.push(form)
+  
+  console.log('storage' , storage)
+
+  sessionStorage.setItem('users', JSON.stringify(storage))
+
+}
+
 </script>
 
 <script src="./js/index.js"></script>
