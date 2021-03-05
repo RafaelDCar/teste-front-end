@@ -16,27 +16,27 @@
       <div class="input-wrapper">
         <span style="display: none" id="nome-error" class="message-error" aria-live="polite">Campo deve conter 3
           caracteres ou mais</span>
-        <input type="text" id="nome" name="nome" pattern="[A-Za-z]{3,}">
+        <input type="text" id="nome" name="nome" required pattern="[A-Za-z]{3,}">
         <label for="nome">Nome completo(sem abreviações)</label>
       </div>
 
       <div class="input-wrapper">
         <span style="display: none" id="email-error" class="message-error" aria-live="polite">Esse não é um email
           válido</span>
-        <input type="email" id="email" name="email">
+        <input type="email" id="email" required name="email">
         <label for="email">Email</label>
       </div>
 
       <div class="input-wrapper">
         <span style="display: none" id="cpf-error" class="message-error" aria-live="polite">Esse CPF não é válido</span>
-        <input type="text" id="cpf" name="cpf" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" maxlength="14">
+        <input type="text" id="cpf" name="cpf" required pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" maxlength="14">
         <label for="cpf">CPF</label>
       </div>
 
       <div class="input-wrapper">
         <span style="display: none" id="telefone-error" class="message-error" aria-live="polite">Esse Telefone não é
           válido</span>
-        <input type="text" id="telefone" name="telefone" pattern="\([0-9]{2}\)[\s][0-9]{4,5}-[0-9]{4}">
+        <input type="text" id="telefone" name="telefone" required pattern="\([0-9]{2}\)[\s][0-9]{4,5}-[0-9]{4}">
         <label for="telefone">Telefone:</label>
       </div>
 
@@ -52,29 +52,34 @@
 <script type="text/javascript">
   const name = document.getElementById("nome");
   const cpf = document.getElementById("cpf");
-  cpf.disabled = true;
   const email = document.getElementById("email");
   const phone = document.getElementById("telefone");
 
   const editUser = JSON.parse(sessionStorage.getItem('editUser'))
   if(editUser) {
-    console.log('edit', editUser)
+    cpf.disabled = true;
     name.value = editUser.name;
     cpf.value = editUser.cpf;
     email.value = editUser.email;
     phone.value = editUser.phone
   }
 
-  const form = {
-    name: name.valid,
-    cpf: cpf.valid,
-    email: email.valid,
-    phone: phone.valid
+  const formValidation = {
+    name: name.validity.valid,
+    cpf: cpf.validity.valid,
+    email: email.validity.valid,
+    phone: phone.validity.valid
   }
 
   name.addEventListener("input", () => {
     const error = document.getElementById('nome-error');
-    nome.validity.valid ? error.style.display = 'none' : error.style.display = 'block';
+    if(name.validity.valid) {
+      error.style.display = 'none';
+      formValidation.name = true;
+    } else {
+      error.style.display = 'block';
+      formValidation.name = false;
+    }
   }, false);
 
   cpf.addEventListener("input", () => {
@@ -91,7 +96,7 @@
 
   phone.addEventListener("input", () => {
     const error = document.getElementById('telefone-error');
-    telefone.validity.valid ? error.style.display = 'none' : error.style.display = 'block';
+    phone.validity.valid ? error.style.display = 'none' : error.style.display = 'block';
   }, false);
 
   email.addEventListener("input", () => {
@@ -99,7 +104,7 @@
     email.validity.valid ? error.style.display = 'none' : error.style.display = 'block';
   }, false);
 
-  console.log('form',form)
+  console.log('formValidation',formValidation)
 </script>
 
 <script type="text/javascript">
@@ -138,32 +143,61 @@
 <script type="text/javascript">
 
   const saveUser = (event) => {
-    const editUser = JSON.parse(sessionStorage.getItem('editUser'))
-    const name = document.getElementById("nome").value;
-    const cpf = document.getElementById("cpf").value;
-    const email = document.getElementById("email").value;
-    const phone = document.getElementById("telefone").value;
+    let isFormValid;
     
-    const form = { name, cpf, email, phone }
+
+    const editUser = JSON.parse(sessionStorage.getItem('editUser'))
+    const name = document.getElementById("nome");
+    const cpf = document.getElementById("cpf");
+    const email = document.getElementById("email");
+    const phone = document.getElementById("telefone");
+    
+    const form = { 
+      name: name.value, 
+      cpf: cpf.value, 
+      email: email.value, 
+      phone: phone.value
+    }
     let storage = JSON.parse(sessionStorage.getItem('users'));
   
     console.log('storage', storage);
 
-    if (editUser) {
+    const validation = {
+      name: name.validity.valid,
+      cpf: cpf.validity.valid,
+      email: email.validity.valid,
+      phone: phone.validity.valid
+    }
+    console.log('salvar validation', validation)
+
+    Object.keys(validation).forEach(each => {
+      console.log(each)
+      console.log(`${each}`, validation[each])
+      if(!validation[each]) {
+        isFormValid = false;
+      } else {
+        isFormValid = true;
+      }
+    })
+
+    console.log('isFormValid', isFormValid)
+    
+    if (editUser && isFormValid) {
       let newArray = storage.filter((user) => editUser.cpf !== user.cpf)
       console.log('filter', newArray)
       newArray.push(form);
       console.log('new', newArray)
       sessionStorage.setItem('users', JSON.stringify(newArray));
       storage = JSON.parse(sessionStorage.getItem('users'));
-      sessionStorage.removeItem('editUser')
-    } else {
+      sessionStorage.removeItem('editUser');
+      window.location.replace("listaUsuarios.html");
+    } else if(isFormValid)  {
       const newStorage = storage.push(form)
-      sessionStorage.setItem('users', JSON.stringify(storage))
-
+      sessionStorage.setItem('users', JSON.stringify(storage));
+      window.location.replace("listaUsuarios.html");
     }
     
-    window.location.replace("listaUsuarios.html");
+    
 
 }
 
