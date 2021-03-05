@@ -131,7 +131,7 @@
 
 <script type="text/javascript">
 
-const saveUser = () => {
+const saveUser = (event) => {
   const nome = document.getElementById("nome").value;
   const cpf = document.getElementById("cpf").value;
   const email = document.getElementById("email").value;
@@ -149,12 +149,15 @@ const saveUser = () => {
 
   sessionStorage.setItem('users', JSON.stringify(storage))
 
+  
+  window.location.replace("listaUsuarios.html");
+
 }
 
 </script>
 
 <script type="text/javascript">
-  const btn = document.getElementById('btn-submit').disabled = true;
+  // const btn = document.getElementById('btn-submit').disabled = true;
 
   
 </script>

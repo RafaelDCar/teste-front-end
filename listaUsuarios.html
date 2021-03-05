@@ -51,6 +51,9 @@
         <th>CPF</th>
         <th>Telefone</th>
         <th>Email</th>
+        <th>Excluir</th>
+        <th>Editar</th>
+        
       </tr>
     </table>
   </div>
@@ -70,16 +73,39 @@
       usersTable.appendChild(tr)
 
       const tdExcluir = document.createElement('td');
-      tdExcluir.innerHTML = 'Excluir';
+      const deleteIcon = document.createElement('img');
+      deleteIcon.src = './icons/trash-alt-solid.svg';
+      deleteIcon.width = 20;
+      deleteIcon.height = 20;
+      deleteIcon.alt = "Excluir"
+      deleteIcon.title = "Excluir"
+      deleteIcon.style.marginRight = "9px"
+      tdExcluir.appendChild(deleteIcon);
+
+      const tdEditar = document.createElement('td');
+      const editIcon = document.createElement('img');
+      editIcon.src = './icons/pen-solid.svg';
+      editIcon.width = 20;
+      editIcon.height = 20;
+      editIcon.alt = "Editar"
+      editIcon.title = "Editar"
+      editIcon.style.marginLeft = "9px"
+      
+      tdEditar.appendChild(editIcon);
+      
 
       Object.keys(user).forEach(key => {
         const td = document.createElement('td');
         td.innerHTML = user[key]
         tr.appendChild(td)
       })
+
       tr.appendChild(tdExcluir)
+      tr.appendChild(tdEditar)
 
       tdExcluir.addEventListener('click', (event) => {
+        event.preventDefault();
+        console.log('entrei excluir')
         const newArray = usersSession.filter((deleteUser) => user.cpf !== deleteUser.cpf)
         sessionStorage.setItem('users', JSON.stringify(newArray));
         usersSession = JSON.parse(sessionStorage.getItem('users'));
@@ -87,6 +113,14 @@
           sessionStorage.removeItem('users');
         }
         usersTable.removeChild(tr);
+      })
+
+      tdEditar.addEventListener('click', () => {
+        console.log('entrei edit', )
+        const editUser = sessionStorage.getItem('editUser');
+        sessionStorage.setItem('editUser', JSON.stringify(user))
+
+
       })
 
     });
