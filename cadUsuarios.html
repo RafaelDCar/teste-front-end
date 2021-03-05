@@ -49,21 +49,30 @@
 
 </body>
 
-
 <script type="text/javascript">
-  const nome = document.getElementById("nome");
+  const name = document.getElementById("nome");
   const cpf = document.getElementById("cpf");
+  cpf.disabled = true;
   const email = document.getElementById("email");
-  const telefone = document.getElementById("telefone");
+  const phone = document.getElementById("telefone");
 
-  const form = {
-    nome: name.valid,
-    cpf: cpf.valid,
-    email: email.valid,
-    telefone: telefone.valid
+  const editUser = JSON.parse(sessionStorage.getItem('editUser'))
+  if(editUser) {
+    console.log('edit', editUser)
+    name.value = editUser.name;
+    cpf.value = editUser.cpf;
+    email.value = editUser.email;
+    phone.value = editUser.phone
   }
 
-  nome.addEventListener("input", () => {
+  const form = {
+    name: name.valid,
+    cpf: cpf.valid,
+    email: email.valid,
+    phone: phone.valid
+  }
+
+  name.addEventListener("input", () => {
     const error = document.getElementById('nome-error');
     nome.validity.valid ? error.style.display = 'none' : error.style.display = 'block';
   }, false);
@@ -80,7 +89,7 @@
     cpf.validity.valid ? error.style.display = 'none' : error.style.display = 'block';
   }, false);
 
-  telefone.addEventListener("input", () => {
+  phone.addEventListener("input", () => {
     const error = document.getElementById('telefone-error');
     telefone.validity.valid ? error.style.display = 'none' : error.style.display = 'block';
   }, false);
@@ -90,10 +99,7 @@
     email.validity.valid ? error.style.display = 'none' : error.style.display = 'block';
   }, false);
 
-  // form.keys(key => {
-  //   console.log(key)
-  // })
-  console.log(form)
+  console.log('form',form)
 </script>
 
 <script type="text/javascript">
@@ -131,26 +137,33 @@
 
 <script type="text/javascript">
 
-const saveUser = (event) => {
-  const nome = document.getElementById("nome").value;
-  const cpf = document.getElementById("cpf").value;
-  const email = document.getElementById("email").value;
-  const telefone = document.getElementById("telefone").value;
+  const saveUser = (event) => {
+    const editUser = JSON.parse(sessionStorage.getItem('editUser'))
+    const name = document.getElementById("nome").value;
+    const cpf = document.getElementById("cpf").value;
+    const email = document.getElementById("email").value;
+    const phone = document.getElementById("telefone").value;
+    
+    const form = { name, cpf, email, phone }
+    let storage = JSON.parse(sessionStorage.getItem('users'));
   
-  const form = { nome, cpf, email, telefone }
+    console.log('storage', storage);
 
-  const storage = JSON.parse(sessionStorage.getItem('users'));
+    if (editUser) {
+      let newArray = storage.filter((user) => editUser.cpf !== user.cpf)
+      console.log('filter', newArray)
+      newArray.push(form);
+      console.log('new', newArray)
+      sessionStorage.setItem('users', JSON.stringify(newArray));
+      storage = JSON.parse(sessionStorage.getItem('users'));
+      sessionStorage.removeItem('editUser')
+    } else {
+      const newStorage = storage.push(form)
+      sessionStorage.setItem('users', JSON.stringify(storage))
 
-  console.log('usuario' , form)
-  
-  const newStorage = storage.push(form)
-  
-  console.log('storage' , storage)
-
-  sessionStorage.setItem('users', JSON.stringify(storage))
-
-  
-  window.location.replace("listaUsuarios.html");
+    }
+    
+    window.location.replace("listaUsuarios.html");
 
 }
 

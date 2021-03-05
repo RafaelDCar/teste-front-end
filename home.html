@@ -29,8 +29,12 @@
 
   getAllUsers().then(data => {
     const storage = sessionStorage.getItem('users');
+    const editUserStorage = sessionStorage.getItem('editUser');
     if(!storage) {
-      sessionStorage.setItem('users', JSON.stringify(data))
+      sessionStorage.setItem('users', JSON.stringify(data));
+    }
+    if(editUserStorage) {
+      sessionStorage.removeItem('editUser');
     }
   })
 </script>
