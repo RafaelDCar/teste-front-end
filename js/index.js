@@ -1,1 +1,1 @@
-import valida_cpf from './valida-cpf';
+import User from '../js/user';

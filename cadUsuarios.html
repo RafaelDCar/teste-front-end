@@ -41,7 +41,7 @@
       </div>
 
       <div class="btn-actions">
-        <button id="btn-submit" class="btn btn-submit" onclick="saveUser()" type="button">Cadastrar</button>
+        <button id="btn-submit" class="btn btn-submit" type="button">Cadastrar</button>
       </div>
     </form>
 
@@ -56,19 +56,13 @@
   const phone = document.getElementById("telefone");
 
   const editUser = JSON.parse(sessionStorage.getItem('editUser'))
+  
   if(editUser) {
     cpf.disabled = true;
     name.value = editUser.name;
     cpf.value = editUser.cpf;
     email.value = editUser.email;
     phone.value = editUser.phone
-  }
-
-  const formValidation = {
-    name: name.validity.valid,
-    cpf: cpf.validity.valid,
-    email: email.validity.valid,
-    phone: phone.validity.valid
   }
 
   name.addEventListener("input", () => {
@@ -84,13 +78,6 @@
 
   cpf.addEventListener("input", () => {
     const error = document.getElementById('cpf-error');
-   
-    if(cpf.value.length === 14) {
-
-      const str = cpf.value.replaceAll('.', '').replaceAll('-', '');
-      const validade = valida_cpf(str);
-      console.log('validade', validade)
-    }
     cpf.validity.valid ? error.style.display = 'none' : error.style.display = 'block';
   }, false);
 
@@ -104,41 +91,9 @@
     email.validity.valid ? error.style.display = 'none' : error.style.display = 'block';
   }, false);
 
-  console.log('formValidation',formValidation)
 </script>
 
-<script type="text/javascript">
-  function valida_cpf(cpf) {
-    var numeros, digitos, soma, i, resultado, digitos_iguais;
-    digitos_iguais = 1;
-    if (cpf.length < 11)
-      return false;
-    for (i = 0; i < cpf.length - 1; i++)
-      if (cpf.charAt(i) != cpf.charAt(i + 1)) {
-        digitos_iguais = 0;
-        break;
-      }
-    if (!digitos_iguais) {
-      numeros = cpf.substring(0, 9);
-      digitos = cpf.substring(9);
-      soma = 0;
-      for (i = 10; i > 1; i--)
-        soma += numeros.charAt(10 - i) * i;
-      resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
-      if (resultado != digitos.charAt(0))
-        return false;
-      numeros = cpf.substring(0, 10);
-      soma = 0;
-      for (i = 11; i > 1; i--)
-        soma += numeros.charAt(11 - i) * i;
-      resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
-      if (resultado != digitos.charAt(1))
-        return false;
-      return true;
-    } else
-      return false;
-  }
-</script>
+
 
 <script type="text/javascript">
 
@@ -146,7 +101,9 @@
     let isFormValid;
     
 
-    const editUser = JSON.parse(sessionStorage.getItem('editUser'))
+    const editUser = JSON.parse(sessionStorage.getItem('editUser'));
+    let storage = JSON.parse(sessionStorage.getItem('users'));
+
     const name = document.getElementById("nome");
     const cpf = document.getElementById("cpf");
     const email = document.getElementById("email");
@@ -158,9 +115,6 @@
       email: email.value, 
       phone: phone.value
     }
-    let storage = JSON.parse(sessionStorage.getItem('users'));
-  
-    console.log('storage', storage);
 
     const validation = {
       name: name.validity.valid,
@@ -168,17 +122,10 @@
       email: email.validity.valid,
       phone: phone.validity.valid
     }
+
     console.log('salvar validation', validation)
 
-    Object.keys(validation).forEach(each => {
-      console.log(each)
-      console.log(`${each}`, validation[each])
-      if(!validation[each]) {
-        isFormValid = false;
-      } else {
-        isFormValid = true;
-      }
-    })
+    
 
     console.log('isFormValid', isFormValid)
     
@@ -196,19 +143,59 @@
       sessionStorage.setItem('users', JSON.stringify(storage));
       window.location.replace("listaUsuarios.html");
     }
-    
-    
-
 }
 
 </script>
 
-<script type="text/javascript">
-  // const btn = document.getElementById('btn-submit').disabled = true;
 
+<script type="module">
+
+  import User from './js/user.js'
+
+  document.getElementById('btn-submit').addEventListener('click', () => {
+    let isFormValid;
+    const form = { 
+      name: document.getElementById("nome").value, 
+      cpf: document.getElementById("cpf").value, 
+      email: document.getElementById("email").value, 
+      phone: document.getElementById("telefone").value
+    }
+
+    const validation = {
+      name: document.getElementById("nome").validity.valid,
+      cpf: document.getElementById("cpf").validity.valid,
+      email: document.getElementById("email").validity.valid,
+      phone: document.getElementById("telefone").validity.valid
+    }
+    console.log('form', form)
+    Object.keys(validation).forEach(each => {
+      if(!validation[each]) {
+        isFormValid = false;
+      } else {
+        isFormValid = true;
+      }
+    })
+
+    if(isFormValid) {
+      const user = new User().saveUser(form);
+    }
+    
+  })
   
+
 </script>
 
-<script src="./js/index.js"></script>
+<script type="module">
+  import Valida from './js/valida.js';
+
+  document.getElementById('cpf').addEventListener('input', (cpf) => {
+
+    if(cpf.target.value.length === 14) {
+      const str = cpf.target.value.replaceAll('.', '').replaceAll('-', '');
+      const isCpfValid = new Valida().valida_cpf(str);
+      console.log('validade', isCpfValid)
+    }
+  }) 
+</script>
 
 </html>
