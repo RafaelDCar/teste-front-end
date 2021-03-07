@@ -93,61 +93,6 @@
 
 </script>
 
-
-
-<script type="text/javascript">
-
-  const saveUser = (event) => {
-    let isFormValid;
-    
-
-    const editUser = JSON.parse(sessionStorage.getItem('editUser'));
-    let storage = JSON.parse(sessionStorage.getItem('users'));
-
-    const name = document.getElementById("nome");
-    const cpf = document.getElementById("cpf");
-    const email = document.getElementById("email");
-    const phone = document.getElementById("telefone");
-    
-    const form = { 
-      name: name.value, 
-      cpf: cpf.value, 
-      email: email.value, 
-      phone: phone.value
-    }
-
-    const validation = {
-      name: name.validity.valid,
-      cpf: cpf.validity.valid,
-      email: email.validity.valid,
-      phone: phone.validity.valid
-    }
-
-    console.log('salvar validation', validation)
-
-    
-
-    console.log('isFormValid', isFormValid)
-    
-    if (editUser && isFormValid) {
-      let newArray = storage.filter((user) => editUser.cpf !== user.cpf)
-      console.log('filter', newArray)
-      newArray.push(form);
-      console.log('new', newArray)
-      sessionStorage.setItem('users', JSON.stringify(newArray));
-      storage = JSON.parse(sessionStorage.getItem('users'));
-      sessionStorage.removeItem('editUser');
-      window.location.replace("listaUsuarios.html");
-    } else if(isFormValid)  {
-      const newStorage = storage.push(form)
-      sessionStorage.setItem('users', JSON.stringify(storage));
-      window.location.replace("listaUsuarios.html");
-    }
-}
-
-</script>
-
-
 <script type="module">
 
   import User from './js/user.js'
@@ -176,7 +121,9 @@
       }
     })
 
-    if(isFormValid) {
+    if (editUser && isFormValid) {
+      const user = new User().editUser(form)
+    } else if(isFormValid) {
       const user = new User().saveUser(form);
     }
     

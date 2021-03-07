@@ -16,10 +16,9 @@ export class User {
 
   }
 
-  editUser = (form) => {
-    const editUser = JSON.parse(sessionStorage.getItem('editUser'));
-    let newStorage = storage.filter((user) => editUser.cpf !== user.cpf)
-    newStorage.push(form);
+  editUser = (editUser) => {
+    let newStorage = this.storage.filter((user) => editUser.cpf !== user.cpf)
+    newStorage.push(editUser);
     sessionStorage.setItem('users', JSON.stringify(newStorage));
     sessionStorage.removeItem('editUser');
   }
