@@ -22,6 +22,10 @@ export class User {
     sessionStorage.setItem('users', JSON.stringify(newStorage));
     sessionStorage.removeItem('editUser');
   }
+
+  findUser = (cpf) => {
+    return this.storage.find((user) => user.cpf === cpf);
+  }
 }
 
 export default User;

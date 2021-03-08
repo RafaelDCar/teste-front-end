@@ -119,8 +119,14 @@
       const user = new User().editUser(form);
       window.location.replace("listaUsuarios.html");
     } else if(isFormValid) {
-      const user = new User().saveUser(form);
-      window.location.replace("listaUsuarios.html");
+      const user = new User();
+      const hasUser = user.findUser(document.getElementById("cpf").value);
+      if(hasUser) {
+        alert('Cpf ja cadastrado')
+      } else {
+        user.saveUser(form);
+        window.location.replace("listaUsuarios.html");
+      }
     }
     
   })
