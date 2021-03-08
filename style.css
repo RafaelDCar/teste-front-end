@@ -23,9 +23,18 @@
   justify-content: center;
   height: 100vh;
 }
-
-.menu-item {
-  padding: 8px;
+@media screen and (max-width: 320px) {
+  .menu {
+    flex-direction: column;
+  }
+}
+.menu button {
+  margin-bottom: 24px;
+}
+@media screen and (min-width: 320px) {
+  .menu button:first-child {
+    margin-right: 12px;
+  }
 }
 
 .wrapper {

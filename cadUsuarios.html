@@ -67,13 +67,7 @@
 
   name.addEventListener("input", () => {
     const error = document.getElementById('nome-error');
-    if(name.validity.valid) {
-      error.style.display = 'none';
-      formValidation.name = true;
-    } else {
-      error.style.display = 'block';
-      formValidation.name = false;
-    }
+    name.validity.valid ? error.style.display = 'none': error.style.display = 'block';
   }, false);
 
   cpf.addEventListener("input", () => {
@@ -122,9 +116,11 @@
     })
 
     if (editUser && isFormValid) {
-      const user = new User().editUser(form)
+      const user = new User().editUser(form);
+      window.location.replace("listaUsuarios.html");
     } else if(isFormValid) {
       const user = new User().saveUser(form);
+      window.location.replace("listaUsuarios.html");
     }
     
   })
