@@ -8,6 +8,10 @@
   <title>Master Detail - Teste Front End</title>
 </head>
 
+<style>
+  
+</style>
+
 <body>
 
   <div class="wrapper">
@@ -41,7 +45,10 @@
       </div>
 
       <div class="btn-actions">
-        <button id="btn-submit" class="btn btn-submit" type="button">Cadastrar</button>
+        <button id="btn-submit" class="btn btn-submit" type="button">
+          <span id="btn-text">Cadastrar</span>
+          <span id="load" class="loading open"></span>
+        </button>
       </div>
     </form>
 
@@ -98,10 +105,15 @@
 <script type="module">
 
   import User from './js/user.js';
+
   
   document.getElementById('btn-submit').addEventListener('click', (e) => {
     e.preventDefault();
     let isFormValid;
+    const load = document.getElementById('load');
+    const btnText = document.getElementById('btn-text');
+    load.style.display = 'block'
+    btnText.style.display = 'none'
 
     const form = { 
       name: document.getElementById("nome").value, 
@@ -127,19 +139,29 @@
       }
     })
 
-    if (editUser && isFormValid) {
-      const user = new User().editUser(form);
-      window.location.replace("listaUsuarios.html");
-    } else if(isFormValid) {
-      const user = new User();
-      const hasUser = user.findUser(document.getElementById("cpf").value);
-      if(hasUser) {
-        alert('Cpf ja cadastrado');
-      } else {
-        user.saveUser(form);
+    const user = new User();
+
+    setTimeout(() => { 
+      if (editUser && isFormValid) {
+        user.editUser(form);
         window.location.replace("listaUsuarios.html");
+      } else if(isFormValid) {
+        const hasUser = user.findUser(form.cpf);
+        if(hasUser) {
+          alert('Cpf ja cadastrado');
+          load.style.display = 'none'
+          btnText.style.display = 'block'
+          return;
+        } else {
+          user.saveUser(form);
+          window.location.replace("listaUsuarios.html");
+        }
+      } else {
+        alert('Formulario invalido')
       }
-    }
+    }, 200);
+
+    
   })
   
 

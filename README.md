@@ -31,3 +31,13 @@ Para o teste apresentado desenvolvi um app simples com 3 paginas, a index com ap
 
 - Estou utilizando a dependencia http-server para servir o app.
   * no terminal rodar o comando `http-server` e teremos nossa aplicação servida no endereço `http://localhost:8080`
+
+- Estou utilizando o sass como pre processador css, se necessario fazer alguma alteração de estilo, abrir o terminal e rodar o comando `sass style.scss style.css --watch` para ver as alterações em tela. 
+
+# Problemas conhecidos
+
+- Apesar de configurado eu não consegui fazer os testes unitários, isso sera algo que tenho que me dedicar para aprender, espero ter essa oportunidade de aprender na easynvest.
+
+- Tabela de listagem de usuarios no modo mobile não esta responsiva.
+
+- Como o insert no sessionStorage é muito rapido eu precisei incluir um timeout no click do botão para ser possivel ver o loading.
