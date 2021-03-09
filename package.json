@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/RafaelDCar/teste-front-end/issues"
   },
-  "homepage": "https://github.com/RafaelDCar/teste-front-end#readme"
+  "homepage": "https://github.com/RafaelDCar/teste-front-end#readme",
+  "dependencies": {
+    "sass": "^1.32.8"
+  },
+  "devDependencies": {
+    "jest": "^26.6.3"
+  }
 }
