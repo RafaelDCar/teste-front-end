@@ -1,150 +1,21 @@
 ![Easynvest](https://user-images.githubusercontent.com/8808895/46966234-81191d00-d083-11e8-8da3-63d1f12e4365.png)
 
-# Teste de Front-end Easynvest
-Este teste é apresentado aos candidatos as vagas de desenvolvimento Front-end para avaliar os quesitos técnicos.
+## Teste Front-end Easynvest
+Para o teste apresentado desenvolvi um app simples com 3 paginas, a index com apenas dois botões de redirecionamento para as paginas principais, a listagem de usuários e o form de cadastro de usuarios novos.
 
-### O Desafio
+ - Funcionalidades da index.html
+  * Quando não exitem usuarios cadastrados(sessionStorage) a pagina faz uma chamada a api de exemplo para buscar os usuarios iniciais
+  * Pagina também limpa uma variavel de sessao adcional que criei para coordenar a edição de usuarios.
 
-Seu objetivo é criar um simples app que deve conter duas páginas, uma que exibe um formulário com os campos abaixo, e outra que liste os dados cadastrados.
+- Funcionalidades da Listagem de Usuarios
+  * Listagem em tabela simples com duas colunas de operações, Excluir e Editar, representados por dois icones, a Lixeira e o Lapis respectivamente
+  * Se clicar na lixeira o usuario e excluido da sessionStorage('users') e a tabela html tambem remove a linha.
+  * Se clicar no lapis o usuario é redirecionado para a tela de 'cadastro' com o form ja preenchido, liberando para edição os campos nome, telefone e email. o campo cpf fica desabilitado para validação.
 
-* Nome completo
-* CPF
-* Telefone
-* Email
+- Funcionalidade do formulario de cadastro.
+  * Campos com validação
+  * Validação do botao de submit para não deixar inserir cpf repetidos
+  * apos cadastro o usuario e redirecionado para tela de listagem
 
-### Pré-requisitos: 
- - Deve ser possível criar, listar e excluir os dados cadastrados pelo formulário;
- - Os inputs de texto e botão devem ter a aparência conforme o guia de estilo abaixo (com validações);
- - Fazer a persistência dos dados no `localStorage` ou `IndexedDB`;
- - Não é permitido a utilização de nenhum framework ou o uso de qualquer biblioteca (exceto para testes unitário e tasks de build), recomendado uso de ECMAScript 6+;
-
-Para ter o estado inicial da lista de usuário utilizar este recurso abaixo:
-
-> GET https://private-21e8de-rafaellucio.apiary-mock.com/users
-
-Response:
-
-```json
-
-[
-  {
-    "name": "My name 1",
-    "cpf": "04080757247",
-    "phone": "11987654321",
-    "email": "myemail1@test.com.br"
-  },
-  {
-    "name": "My name 2",
-    "cpf": "77797584192",
-    "phone": "11987654321",
-    "email": "myemail2@test.com.br"
-  },
-  {
-    "name": "My name 3",
-    "cpf": "45486737688",
-    "phone": "11987654321",
-    "email": "myemail3@test.com.br"
-  }
-]
-```
-
-A partir deste ponto utilizar o `localStorage/IndexedDB` para persistir localmente as informações.
-
-Save:
-
-```json
-{
-  "name": "My name 4",
-  "cpf": "74668869066",
-  "phone": "11987654321",
-  "email": "myemail4@test.com.br"
-}
-```
-
-Lista local:
-```json
-[
-  {
-    "name": "My name 1",
-    "cpf": "04080757247",
-    "phone": "11987654321",
-    "email": "myemail1@test.com.br"
-  },
-  {
-    "name": "My name 2",
-    "cpf": "77797584192",
-    "phone": "11987654321",
-    "email": "myemail2@test.com.br"
-  },
-  {
-    "name": "My name 3",
-    "cpf": "45486737688",
-    "phone": "11987654321",
-    "email": "myemail3@test.com.br"
-  },
-  {
-    "name": "My name 4",
-    "cpf": "74668869066",
-    "phone": "11987654321",
-    "email": "myemail4@test.com.br"
-  }
-]
-```
-
-### Plus:
- - A página ser responsiva;
- - Permitir edição;
- - Uso de pré-processador css;
- - Testes End to End;
-
-### O que esperamos:
- - Testes, no mínimo testes unitários;
- - Padrão de Projeto e boas práticas de Orientação a Objetos;
- - Utilizar ECMAScript 6+;
- - Criar um passo a passo de como rodar sua aplicação [(Sugestão)](https://github.com/wearehive/project-guidelines/blob/master/README.sample.md);
- - Criar uma breve descrição da solução utilizada.
-
-
-## Guia de estilo
-
-### Input:
- - Cor da fonte sem foco: <span style="color:#efeeed">*#efeeed*</span>.
- - Cor da fonte com foco: <span style="color:#333333">*#333333*</span>.
- - Cor da borda: <span style="color:#efeeed">*#efeeed*</span>.
-
-![inputs](./images/name.png)
-
-### Input Inválido:
- - Cor da fonte: <span style="color:#eb4a46">*#eb4a46*</span>.
- - Cor da borda: <span style="color:#eb4a46">*#eb4a46*</span>.
-
-![inputs](./images/name_validation.png)
-
-### Botão Habilitado:
- - Cor da fonte com foco: <span style="color:#ffffff">*#ffffff*</span>.
- - Cor de background: <span style="color:#00c8b3">*#00c8b3*</span>.
-
-![inputs](./images/button_enable.png)
-
-### Botão Hover:
- - Opacidade do botão com hover: 70%.
-
-![inputs](./images/button_enable_hover.png)
-
-### Botão Desabilitado:
- - Cor da fonte sem foco: <span style="color:#dddcdc">*#dddcdc*</span>.
- - Cor de background: <span style="color:#f6f6f6">*#f6f6f6*</span>.
-
-![inputs](./images/button_disable.png)
-
-### Botão Loading:
-
-![inputs](./images/button_enable_loading.png)
-
-**Criar animação de loading ao clicar no submit*
-
-### Exemplo Final
-
-![inputs](./images/form.png)
 
 ** Use sua criatividade para criar a página para listar os dados cadastrados **
