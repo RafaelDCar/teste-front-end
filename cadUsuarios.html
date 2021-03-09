@@ -60,7 +60,11 @@
   if(editUser) {
     cpf.disabled = true;
     name.value = editUser.name;
-    cpf.value = editUser.cpf;
+    cpf.value = editUser.cpf.replace(/\D/g, '')
+      .replace(/(\d{3})(\d)/, '$1.$2') 
+      .replace(/(\d{3})(\d)/, '$1.$2')
+      .replace(/(\d{3})(\d{1,2})/, '$1-$2')
+      .replace(/(-\d{2})\d+?$/, '$1')
     email.value = editUser.email;
     phone.value = editUser.phone
   }
@@ -94,10 +98,10 @@
   document.getElementById('btn-submit').addEventListener('click', (e) => {
     e.preventDefault();
     let isFormValid;
-    
+
     const form = { 
       name: document.getElementById("nome").value, 
-      cpf: document.getElementById("cpf").value, 
+      cpf: document.getElementById("cpf").value.replaceAll('.', '').replaceAll('-', ''), 
       email: document.getElementById("email").value, 
       phone: document.getElementById("telefone").value
     }
@@ -139,17 +143,12 @@
 
 <script type="module">
   import Valida from './js/valida.js';
+  import cpf_mask from './js/cpf.mask.js';
 
   document.getElementById('cpf').addEventListener('input', (cpf) => {
 
     let cpfValue = cpf.target.value;
-
-    cpfValue = cpfValue.replace(/\D/g, '') 
-    .replace(/(\d{3})(\d)/, '$1.$2') 
-    .replace(/(\d{3})(\d)/, '$1.$2')
-    .replace(/(\d{3})(\d{1,2})/, '$1-$2')
-    .replace(/(-\d{2})\d+?$/, '$1')
-
+    cpfValue = cpf_mask(cpfValue);
     cpf.target.value = cpfValue;
 
     console.log('cpfValue', cpfValue)
