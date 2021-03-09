@@ -3,7 +3,7 @@
 ## Teste Front-end Easynvest
 Para o teste apresentado desenvolvi um app simples com 3 paginas, a index com apenas dois botões de redirecionamento para as paginas principais, a listagem de usuários e o form de cadastro de usuarios novos.
 
- - Funcionalidades da index.html
+- Funcionalidades da index.html
   * Quando não exitem usuarios cadastrados(sessionStorage) a pagina faz uma chamada a api de exemplo para buscar os usuarios iniciais
   * Pagina também limpa uma variavel de sessao adcional que criei para coordenar a edição de usuarios.
 
@@ -18,4 +18,16 @@ Para o teste apresentado desenvolvi um app simples com 3 paginas, a index com ap
   * apos cadastro o usuario e redirecionado para tela de listagem
 
 
-** Use sua criatividade para criar a página para listar os dados cadastrados **
+** Rodando o projeto **
+
+# Pré requisitos
+
+  * node.js 
+
+- Depois de baixar o projeto e ja tiver o node instalado em sua maquina rodar o comando na pasta do projeto.
+ `npm install`
+
+ isso ira baixar as dependencias necessarias para rodar o projeto localmente.
+
+- Estou utilizando a dependencia http-server para servir o app.
+  * no terminal rodar o comando `http-server` e teremos nossa aplicação servida no endereço `http://localhost:8080`
