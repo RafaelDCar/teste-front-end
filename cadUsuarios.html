@@ -50,6 +50,13 @@
 </body>
 
 <script type="text/javascript">
+  const cpf_mask = (cpf) => {
+    return cpf = cpf.replace(/\D/g, '')
+      .replace(/(\d{3})(\d)/, '$1.$2') 
+      .replace(/(\d{3})(\d)/, '$1.$2')
+      .replace(/(\d{3})(\d{1,2})/, '$1-$2')
+      .replace(/(-\d{2})\d+?$/, '$1')
+  }
   const name = document.getElementById("nome");
   const cpf = document.getElementById("cpf");
   const email = document.getElementById("email");
@@ -60,13 +67,9 @@
   if(editUser) {
     cpf.disabled = true;
     name.value = editUser.name;
-    cpf.value = editUser.cpf.replace(/\D/g, '')
-      .replace(/(\d{3})(\d)/, '$1.$2') 
-      .replace(/(\d{3})(\d)/, '$1.$2')
-      .replace(/(\d{3})(\d{1,2})/, '$1-$2')
-      .replace(/(-\d{2})\d+?$/, '$1')
+    cpf.value = cpf_mask(editUser.cpf)
     email.value = editUser.email;
-    phone.value = editUser.phone
+    phone.value = editUser.phone.replace(/^(\d\d)(\d{4,5})(\d{4}).*/,"($1) $2-$3")
   }
 
   name.addEventListener("input", () => {
@@ -79,7 +82,8 @@
     cpf.validity.valid ? error.style.display = 'none' : error.style.display = 'block';
   }, false);
 
-  phone.addEventListener("input", () => {
+  phone.addEventListener("input", (tel) => {
+    tel.target.value = tel.target.value.replace(/^(\d\d)(\d{5})(\d{4}).*/,"($1) $2-$3")
     const error = document.getElementById('telefone-error');
     phone.validity.valid ? error.style.display = 'none' : error.style.display = 'block';
   }, false);
@@ -94,7 +98,7 @@
 <script type="module">
 
   import User from './js/user.js';
-
+  
   document.getElementById('btn-submit').addEventListener('click', (e) => {
     e.preventDefault();
     let isFormValid;
@@ -103,7 +107,7 @@
       name: document.getElementById("nome").value, 
       cpf: document.getElementById("cpf").value.replaceAll('.', '').replaceAll('-', ''), 
       email: document.getElementById("email").value, 
-      phone: document.getElementById("telefone").value
+      phone: document.getElementById("telefone").value.replace(/[^0-9\.]+/g, '')
     }
 
     const validation = {
